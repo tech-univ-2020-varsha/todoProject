@@ -1,0 +1,28 @@
+version: "3"
+services:
+  todoapp-frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./todoFrontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_URL: http://todo/notes
+  todoapp-backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./todoBackend
+    depends_on:
+      - postgres
+    ports:
+      - "80:80"
+    env_file: 
+      - ./todoBackend/.env
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: Varsha_C_L
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: notes
